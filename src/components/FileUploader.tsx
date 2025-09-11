@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
@@ -31,6 +32,7 @@ export default function FileUploader() {
       if (event.lengthComputable) {
         const progress = Math.round((event.loaded * 100) / event.total);
         setUploadProgress(progress);
+        
       }
     };
 
@@ -54,43 +56,73 @@ export default function FileUploader() {
   }
 
   return (
+
     
-    <div className="px-4 py-2 bg-blue-200 text-black rounded-lg shadow text-center w-150 h-60">
-      <input type="file" onChange={handleFileChange} />
-      {file && (
-        <div className="text-center">
-          <p>Nome do Arquivo: {file.name}</p>
-          <p>Size: {(file.size / 1024).toFixed(2)} KB</p>
-          <p>Type: {file.type}</p>
+
+<div className="flex items-center justify-center min-h-[calc(100vh-5rem)] p-4 overflow-x-hidden">
+  <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center gap-4 
+                  w-full sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] box-border">
+    <h1 className="text-xl font-bold text-gray-800 text-center">
+      Upload de Arquivo
+    </h1>
+
+    <div className="flex flex-col items-center gap-4 w-full">
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="file:mr-4 file:py-2 file:px-4 
+                   file:rounded-lg file:border-0 
+                   file:text-sm file:font-medium 
+                   file:bg-blue-600 file:text-white 
+                   hover:file:bg-blue-700 
+                   cursor-pointer w-full"
+      />
+
+      {file && status !== "uploading" && (
+        <div className="flex justify-center w-full">
+          <button
+            onClick={handleFileUpload}
+            className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
+          >
+            Enviar Arquivo
+          </button>
         </div>
       )}
 
-      {file && status !== "uploading" && (
-        <div className="flex justify-center m-4">
-        <button
-  onClick={handleFileUpload}
-  className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition" >Upload</button>
-      </div>)} 
-
       {status === "uploading" && (
-        <div>
+        <div className="space-y-2 w-full">
+          <div className="w-full bg-gray-200 rounded-full h-3">
             <div
-              className="bg-blue-600 h-2.5 rounded-full transition-all duration-300 text-center"
+              className="bg-blue-600 h-3 rounded-full transition-all duration-300"
               style={{ width: `${uploadProgress}%` }}
             ></div>
-
-          <p>
+          </div>
+          <p className="text-center text-sm text-gray-700 font-medium">
             {uploadProgress}%
           </p>
         </div>
       )}
 
       {status === "success" && (
-        <p className="text-center">Upload concluído</p>
+        <div className="">
+        <p className="text-green-600 text-center font-semibold p-5">
+          ✅ Upload concluído!
+
+        </p>
+        <div className="text-center">
+        <Link
+        to="/validacao" className="px-6 py-2 bg-blue-700 text-white font-medium rounded-lg shadow hover:bg-blue-800 transition ">Validar</Link>
+        </div>
+        </div>
+
       )}
+
       {status === "error" && (
-        <p className="text-center">Erro no upload</p>
+        <p className="text-red-600 text-center font-semibold">
+          ❌ Erro no upload, tente novamente.
+        </p>
       )}
     </div>
-  );
-}
+  </div>
+</div>
+)};
