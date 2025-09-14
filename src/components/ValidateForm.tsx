@@ -1,5 +1,132 @@
-export function ValidateForm() {
-    return(
-        <h1>validando seu formulário</h1>
-    )
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Importe 'useNavigate'
+import type { ProcessedData } from "./FileUploader";
+
+export default function ValidateForm() {
+  const [processedData, setProcessedData] = useState<ProcessedData[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("tempPatientData");
+    if (savedData) {
+      setProcessedData(JSON.parse(savedData) as ProcessedData[]);
+    }
+  }, []);
+
+  const handleDeleteRow = (rowIndexToDelete: number) => {
+    const updatedData = processedData.filter((_, index) => index !== rowIndexToDelete);
+    setProcessedData(updatedData);
+    localStorage.setItem("patientData", JSON.stringify(updatedData));
+  };
+
+  const handleCellChange = (rowIndex: number, key: string, newValue: string) => {
+    const newData = processedData.map((row, index) =>
+      index === rowIndex ? { ...row, [key]: newValue } : row
+    );
+    setProcessedData(newData);
+    localStorage.setItem("patientData", JSON.stringify(newData));
+  };
+
+  const headers = Array.from(
+    processedData.reduce((acc, row) => {
+      Object.keys(row).forEach((key) => acc.add(key));
+      return acc;
+    }, new Set<string>())
+  );
+
+  if (processedData.length === 0) {
+    return <p className="text-gray-600 text-center">Nenhum dado carregado.</p>;
+  }
+
+  const handleFinishValidation = () => {
+    const existingHistory = localStorage.getItem("patientData");
+    const historyData: ProcessedData[] = existingHistory ? JSON.parse(existingHistory) : [];
+    const updatedHistory = [...historyData, ...processedData];
+    localStorage.setItem("patientData", JSON.stringify(updatedHistory));
+    localStorage.removeItem("tempPatientData");
+  };
+
+
+  const handleBackToUpload = () => {
+    localStorage.removeItem("tempPatientData"); 
+    navigate("/"); 
+  };
+
+  return (
+    
+    <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-10 bg-gray-100 min-h-screen">
+      <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-6">
+        Validação dos Dados
+      </h1>
+
+      <div className="overflow-x-auto w-full mb-4 bg-white rounded-lg shadow-lg">
+        <table className="w-full divide-y divide-gray-200 text-sm sm:text-base">
+          <thead className="bg-blue-200">
+            <tr>
+              {headers.map((key) => (
+                <th
+                  key={key}
+                  className="px-3 sm:px-4 py-3 text-left font-bold text-black uppercase tracking-wider"
+                >
+                  {key}
+                </th>
+              ))}
+              <th className="px-3 sm:px-4 py-3 text-center font-bold text-black uppercase tracking-wider">
+                Ações
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {processedData.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {headers.map((key) => (
+                  <td
+                    key={key}
+                    className="px-2 sm:px-2 py-2 sm:py-4 whitespace-nowrap text-gray-900"
+                  >
+                    <input
+                      type="text"
+                      value={row[key] !== undefined ? String(row[key]) : "-"}
+                      onChange={(e) => handleCellChange(rowIndex, key, e.target.value)}
+                      className="w-full border rounded px-2 py-1 sm:px-3 sm:py-2 
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                                 transition-all duration-200 text-sm sm:text-base"
+                    />
+                  </td>
+                ))}
+                <td className="px-3 sm:px-6 py-2 sm:py-4 text-center">
+                  <button
+                    onClick={() => handleDeleteRow(rowIndex)}
+                    className="text-red-500 hover:text-red-700 transition-colors duration-200"
+                    title="Deletar registro"
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+
+      <div className="flex justify-center sm:justify-end w-full gap-4">
+
+
+        <Link to="/importar" onClick={handleBackToUpload}>
+        <button
+          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gray-600 text-white font-medium rounded-lg shadow hover:bg-gray-600 transition"
+        >
+          Voltar para Upload
+        </button>
+        </Link>
+
+        <Link to="/historico" onClick={handleFinishValidation}>
+          <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition">
+            Terminar Validação
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
 }
