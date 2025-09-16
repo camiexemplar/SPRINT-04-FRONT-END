@@ -11,7 +11,6 @@ export default function FileUploader() {
   const navigate = useNavigate();
   const cancelFlag = useRef(false);
 
-
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) setFile(e.target.files[0]);
   }
@@ -23,7 +22,6 @@ export default function FileUploader() {
     setFile(null);
   }
 
-
   async function handleFileUpload() {
     if (!file) return;
 
@@ -31,37 +29,31 @@ export default function FileUploader() {
     setUploadProgress(0);
     cancelFlag.current = false;
 
-
-
-
     try {
       const totalSteps = 10;
       for (let i = 1; i <= totalSteps; i++) {
         if (cancelFlag.current) {
           console.log("Upload cancelado.");
-          return; 
+          return;
         }
-
         await new Promise(resolve => setTimeout(resolve, 150));
         setUploadProgress(i * (100 / totalSteps));
       }
 
-
-      //enviando planilha para o backend
+      // Envia para o backend
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("planilha", file);
 
-      const response = await fetch("http://localhost:8080/upload", {
+      const response = await fetch("http://localhost:8080/api/upload/receber", {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao enviar arquivo");
+        throw new Error("Erro ao processar arquivo");
       }
 
-
-      //esperando resposta do back
+      // Salva local
       const newJsonData: ProcessedData[] = await response.json();
       localStorage.setItem("tempPatientData", JSON.stringify(newJsonData));
 
@@ -74,7 +66,6 @@ export default function FileUploader() {
   }
 
   return (
-    
     <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-8 bg-gray-100 min-h-screen">
       <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-6">
         Upload de Arquivo
