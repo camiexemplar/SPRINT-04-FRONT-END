@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ProcessedData } from "./FileUploader"; 
+import type { ProcessedData } from "./FileUploader";
 
 interface PatientHistoryTableProps {
   data: ProcessedData[];
@@ -7,14 +7,13 @@ interface PatientHistoryTableProps {
 
 export default function PatientHistoryTable({ data }: PatientHistoryTableProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [tableData, setTableData] = useState<ProcessedData[]>(data);
 
-  const filteredData = data.filter((row) =>
+  const filteredData = tableData.filter((row) =>
     Object.values(row).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
-  
 
   const headers = [
     "ID Consulta",
@@ -27,10 +26,14 @@ export default function PatientHistoryTable({ data }: PatientHistoryTableProps) 
     "Data e Hora",
     "Status",
     "Anotações",
-    "Link da Teleconsulta"
+    "Link da Teleconsulta",
   ];
 
-  
+
+  const handleDelete = (rowIndex: number) => {
+    setTableData((prev) => prev.filter((_, i) => i !== rowIndex));
+  };
+
   return (
     <div className="flex-1 flex flex-col bg-gray-100">
       <div className="flex flex-col">
@@ -58,12 +61,15 @@ export default function PatientHistoryTable({ data }: PatientHistoryTableProps) 
               <tr>
                 {headers.map((key) => (
                   <th
-                    key={key as string}
+                    key={key}
                     className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider"
                   >
                     {key}
                   </th>
                 ))}
+                <th className="px-6 py-3 text-center text-xs font-bold text-black uppercase tracking-wider">
+                  Ações
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -71,13 +77,21 @@ export default function PatientHistoryTable({ data }: PatientHistoryTableProps) 
                 <tr key={rowIndex}>
                   {headers.map((key) => (
                     <td
-                      key={key as string}
+                      key={key}
                       className="px-3 py-4 whitespace-nowrap text-sm text-gray-900"
                     >
                       {row[key]}
                     </td>
-                    
                   ))}
+                  <td className="px-3 py-4 text-center">
+                    <button
+                      onClick={() => handleDelete(rowIndex)}
+                      className="text-lg hover:scale-110 transition"
+                      title="Deletar linha"
+                    >
+                      ...
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

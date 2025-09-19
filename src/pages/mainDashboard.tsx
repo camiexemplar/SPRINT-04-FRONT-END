@@ -1,5 +1,6 @@
 export function Dashboard() {
   return (
-  <h1>ola</h1>
+  <h1>dashboard aqui</h1>
+  
   )
 }

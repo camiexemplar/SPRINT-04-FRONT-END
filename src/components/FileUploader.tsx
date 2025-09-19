@@ -14,7 +14,7 @@ export default function FileUploader() {
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) setFile(e.target.files[0]);
   }
-
+  
   function handleCancelUpload() {
     cancelFlag.current = true;
     setStatus("idle");
@@ -28,7 +28,7 @@ export default function FileUploader() {
     setStatus("uploading");
     setUploadProgress(0);
     cancelFlag.current = false;
-
+    
     try {
       const totalSteps = 10;
       for (let i = 1; i <= totalSteps; i++) {
@@ -38,6 +38,7 @@ export default function FileUploader() {
         }
         await new Promise(resolve => setTimeout(resolve, 150));
         setUploadProgress(i * (100 / totalSteps));
+        
       }
 
       // Envia para o backend
@@ -86,7 +87,7 @@ export default function FileUploader() {
             onClick={handleFileUpload}
             className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition w-full sm:w-auto"
           >
-            Enviar Arquivo
+            Enviar Arquivos
           </button>
         )}
 
@@ -118,6 +119,7 @@ export default function FileUploader() {
           </p>
         )}
       </div>
+      <div></div>
     </div>
   );
 }
