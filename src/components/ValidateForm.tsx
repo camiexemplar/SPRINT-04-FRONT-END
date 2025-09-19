@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Importe 'useNavigate'
+import { useNavigate } from "react-router-dom";
 import type { ProcessedData } from "./FileUploader";
 
 export default function ValidateForm() {
@@ -16,7 +16,7 @@ export default function ValidateForm() {
   const handleDeleteRow = (rowIndexToDelete: number) => {
     const updatedData = processedData.filter((_, index) => index !== rowIndexToDelete);
     setProcessedData(updatedData);
-    localStorage.setItem("patientData", JSON.stringify(updatedData));
+    localStorage.setItem("tempPatientData", JSON.stringify(updatedData));
   };
 
   const handleCellChange = (rowIndex: number, key: string, newValue: string) => {
@@ -24,7 +24,7 @@ export default function ValidateForm() {
       index === rowIndex ? { ...row, [key]: newValue } : row
     );
     setProcessedData(newData);
-    localStorage.setItem("patientData", JSON.stringify(newData));
+    localStorage.setItem("tempPatientData", JSON.stringify(newData));
   };
 
   const headers = Array.from(
@@ -38,22 +38,39 @@ export default function ValidateForm() {
     return <p className="text-gray-600 text-center">Nenhum dado carregado.</p>;
   }
 
-  const handleFinishValidation = () => {
-    const existingHistory = localStorage.getItem("patientData");
-    const historyData: ProcessedData[] = existingHistory ? JSON.parse(existingHistory) : [];
-    const updatedHistory = [...historyData, ...processedData];
-    localStorage.setItem("patientData", JSON.stringify(updatedHistory));
-    localStorage.removeItem("tempPatientData");
+  // salvando no banco de dados: 
+  const handleFinishValidation = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/upload/salvar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(processedData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao salvar no banco de dados");
+      }
+
+      const savedData: ProcessedData[] = await response.json();
+      
+
+      // remove temporário
+      localStorage.setItem("patientData", JSON.stringify(savedData));
+      localStorage.removeItem("tempPatientData");
+
+      navigate("/historico");
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao salvar no banco");
+    }
   };
 
-
   const handleBackToUpload = () => {
-    localStorage.removeItem("tempPatientData"); 
-    navigate("/"); 
+    localStorage.removeItem("tempPatientData");
+    navigate("/importar");
   };
 
   return (
-    
     <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-10 bg-gray-100 min-h-screen">
       <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-6">
         Validação dos Dados
@@ -109,23 +126,20 @@ export default function ValidateForm() {
         </table>
       </div>
 
-
       <div className="flex justify-center sm:justify-end w-full gap-4">
-
-
-        <Link to="/importar" onClick={handleBackToUpload}>
         <button
-          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gray-600 text-white font-medium rounded-lg shadow hover:bg-gray-600 transition"
+          onClick={handleBackToUpload}
+          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gray-600 text-white font-medium rounded-lg shadow hover:bg-gray-700 transition"
         >
           Voltar para Upload
         </button>
-        </Link>
 
-        <Link to="/historico" onClick={handleFinishValidation}>
-          <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition">
-            Terminar Validação
-          </button>
-        </Link>
+        <button
+          onClick={handleFinishValidation}
+          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition"
+        >
+          Terminar Validação
+        </button>
       </div>
     </div>
   );
