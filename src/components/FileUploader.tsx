@@ -67,10 +67,17 @@ export default function FileUploader() {
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-8 bg-gray-100 min-h-screen">
+    <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-8 min-h-screen">
       <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-6">
         Upload de Arquivo
       </h1>
+      <div className="flex justify-center items-center text-sm sm:text-base text-gray-600 mb-6">
+        <span className="font-semibold text-gray-800">1. Realizando o UPLOAD</span>
+        <span className="mx-4">|</span>
+        <span>2. Validando</span>
+        <span className="mx-4">|</span>
+        <span>3. Finalização</span>
+      </div>
 
       <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center gap-4 w-full max-w-xl">
         <input
@@ -123,3 +130,4 @@ export default function FileUploader() {
     </div>
   );
 }
+
