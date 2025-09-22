@@ -1,48 +1,68 @@
 // src/pages/LoginPage.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import logo from '../assets/logo.png'; 
 
 export const LoginPage: React.FC = () => {
+  // --- LÓGICA DE FUNCIONALIDADE ---
+  const { login } = useAuth(); // Pega a função de login do nosso Contexto
+  const navigate = useNavigate(); // Hook para fazer o redirecionamento
+  
+  // Estados para controlar o que o usuário digita nos campos
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Função executada quando o formulário é enviado (clique no botão "Entrar")
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); // Impede que a página recarregue
+
+    // Futuramente, aqui você validaria o email e senha com um backend.
+    // Por agora, apenas simulamos o sucesso.
+    login(); // Avisa toda a aplicação que o usuário está logado
+    
+    navigate('/'); // Redireciona o usuário para a página principal (Dashboard)
+  };
+  
   return (
+    // --- ESTRUTURA VISUAL ---
     <div className="flex flex-col min-h-screen bg-gray-100 font-sans">
       
-      {/* Header (mantido como está) */}
       <header className="w-full bg-white shadow-md py-2 px-8">
+        {/* Mantendo sua alteração no tamanho do logo */}
         <img src={logo} alt="CGL HealthTech Logo" className="w-25" />
       </header>
 
-      {/* Área de conteúdo principal */}
       <main className="flex flex-grow items-center justify-center p-8">
         
-        {/* Card de login */}
         <div className="flex w-full max-w-7xl bg-white rounded-xl shadow-2xl overflow-hidden">
           
-          {/* 1. Painel Esquerdo: Ajustes para ficar como o exemplo */}
-          <div className="flex-1 p-24 flex flex-col items-center justify-center"> {/* ALTERADO: adicionei items-center */}
+          <div className="flex-1 p-24 flex flex-col items-center justify-center">
             
-            {/* Texto "Conectando Saúde e Tecnologia" - Cor azul, maior, mais espaçamento */}
-            <h1 className="text-4xl font-semibold text-blue-500 text-center mb-4 leading-tight"> {/* ALTERADO: cor, tamanho, centralizado, font-semibold, leading-tight */}
+            <h1 className="text-4xl font-semibold text-blue-500 text-center mb-4 leading-tight">
               Conectando Saúde e Tecnologia
             </h1>
             
-            {/* Texto "Login" - Cor escura, tamanho um pouco menor */}
-            <h2 className="text-3xl font-medium text-gray-800 text-center mb-12"> {/* ALTERADO: cor, tamanho, centralizado, font-medium */}
+            <h2 className="text-3xl font-medium text-gray-800 text-center mb-12">
               Login
             </h2>
-          
-            <form className="flex flex-col space-y-6 w-full max-w-sm"> {/* ALTERADO: space-y-6 e adicionei w-full max-w-sm para limitar a largura do formulário */}
+            
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-6 w-full max-w-sm">
               <input
                 type="email"
                 placeholder="E-mail institucional"
+                value={email} // Conecta o campo ao estado 'email'
+                onChange={(e) => setEmail(e.target.value)} // Atualiza o estado quando o usuário digita
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
               />
               <input
                 type="password"
                 placeholder="Senha"
+                value={password} // Conecta o campo ao estado 'password'
+                onChange={(e) => setPassword(e.target.value)} // Atualiza o estado quando o usuário digita
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
               />
-              {/* Botão "Entrar" - Cor azul mais clara (como no exemplo) */}
               <button
                 type="submit"
                 className="w-full px-6 py-4 bg-blue-400 text-white font-bold rounded-lg hover:bg-blue-500 transition-colors text-xl"
@@ -51,12 +71,11 @@ export const LoginPage: React.FC = () => {
               </button>
             </form>
             
-            <a href="#" className="mt-8 text-center text-base text-gray-600 hover:underline"> {/* ALTERADO: mt-10 para mt-8 e text-sm para text-base */}
+            <a href="#" className="mt-8 text-center text-base text-gray-600 hover:underline">
               Esqueceu a senha?
             </a>
           </div>
 
-          {/* Painel Direito: Informações (mantido como está) */}
           <div className="flex-1 p-24 bg-blue-500 text-white flex items-center justify-center">
             <p className="text-2xl leading-relaxed text-center">
               Plataforma digital do Hospital das Clínicas, desenvolvida para facilitar o acesso seguro e eficiente às informações de pacientes e dashboards de gestão.
