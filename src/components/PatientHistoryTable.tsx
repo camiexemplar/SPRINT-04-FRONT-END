@@ -35,7 +35,7 @@ export default function PatientHistoryTable({ data }: PatientHistoryTableProps) 
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-gray-100">
+    <div className="flex-1 flex flex-col">
       <div className="flex flex-col">
         <div className="flex justify-between items-center p-4">
           <div className="font-bold text-lg text-gray-700">

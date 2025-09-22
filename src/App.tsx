@@ -11,32 +11,36 @@ import { Loading } from "./components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./pages/FallbackScreen";
 import { Dashboard } from "./pages/mainDashboard";
+import { LoginPage } from "./pages/loginPage";
 
-
-//lembrar de arrumar o lazy e suspense
-
+// --- MUDANÇAS AQUI ---
+import { AuthProvider } from './contexts/AuthContext';
+import { ProtectedRoute } from "./components/ProtectedRoute"; 
 
 function App() {
   return (
-    <BrowserRouter>
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />}/>
-          <Route path="/importar" element={<FileUploader />} />
-          <Route path="/validate" element={<ValidateForm />} />
-          <Route path="/historico" element={<PatientHistory />} />
-          <Route path="/videos" element={<HelpVideos />} />
-          <Route path="/alertas" element={<SendAlerts />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-        </Suspense>
-      </ErrorBoundary>
-    </BrowserRouter>
-
-    
+    <AuthProvider>
+      <BrowserRouter>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route element={<Layout />}>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/importar" element={<FileUploader />} />
+                  <Route path="/validate" element={<ValidateForm />} />
+                  <Route path="/historico" element={<PatientHistory />} />
+                  <Route path="/videos" element={<HelpVideos />} />
+                  <Route path="/alertas" element={<SendAlerts />} />
+                </Route>
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

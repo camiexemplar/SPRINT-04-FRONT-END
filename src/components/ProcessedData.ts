@@ -1,10 +1,14 @@
 export interface ProcessedData {
-  'ID da Teleconsulta': string;
-  'Paciente': string;
-  'Médico Responsável': string;
-  'Especialidade': string;
-  'Data e Hora': string;
-  'Status': string;
-  'Anotações': string;
-  'Link da Teleconsulta': string;
+  "Data agenda": string;
+  "Nome paciente": string;
+  "Número celular": string;
+  "Data nascimento": string;
+  "Nome acompanhante": string;
+  "Número acompanhante": string;
+  "Nome medico": string;
+  "Especialidade": string;
+  "Hora Agenda": string;
+  "Link": string;
+  "Código": number;
+  "OBS": string;
 }
