@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from "react"; // ✨ 1. Importe useRef e useEffect
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+
 import logo from "../assets/logoextendida.png";
 import nopicture from "../assets/nopicture.png";
 import logout from "../assets/logout.png";
@@ -30,16 +32,24 @@ const NavItem = ({ to, icon, label, onClick, isActive }: {
 export default function Layout() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const { logout: authLogout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    authLogout();
+    navigate('/login');
+    setIsMenuOpen(false);
+  };
+
   const navItems = [
-    { name: "Dashboard", icon: "🖥️", path: "/" },
-    { name: "Histórico de pacientes", icon: "🩺", path: "/historico" },
-    { name: "Importar Dados", icon: "🧩", path: "/importar" },
-    { name: "Vídeos para usuários", icon: "▶️", path: "/videos" },
-    { name: "Enviar alertas", icon: "🚨", path: "/alertas" },
+    { name: "Dashboard", icon: "", path: "/" },
+    { name: "Histórico de pacientes", icon: "", path: "/historico" },
+    { name: "Importar Dados", icon: "", path: "/importar" },
+    { name: "Vídeos para usuários", icon: "", path: "/videos" },
+    { name: "Enviar alertas", icon: "", path: "/alertas" },
   ];
 
   useEffect(() => {
@@ -86,10 +96,10 @@ export default function Layout() {
 
           <div className="p-4 border-t border-gray-700">
             <button
-              onClick={() => console.log("Logout!")} // Substitua com a lógica de logout
-              className="flex items-center gap-4 p-3 rounded-xl text-gray-400 hover:bg-gray-700 hover:text-white transition-all duration-200"
+              onClick={handleLogout}
+              className="flex items-center w-full gap-4 p-3 rounded-xl text-gray-400 hover:bg-gray-700 hover:text-white transition-all duration-200"
             >
-              <div className="w-6 h-6 flex items-center justify-center text-xl"> <img src={ logout } alt="deslogar" /></div>
+              <div className="w-6 h-6 flex items-center justify-center text-xl"> <img src={logout} alt="deslogar" /></div>
               <span className="text-sm font-medium">Sair</span>
             </button>
           </div>
@@ -97,20 +107,19 @@ export default function Layout() {
       </div>
 
       <div className="flex-1 flex flex-col overflow-x-hidden">
-        <header className="bg-white flex items-center justify-between p-4 shadow-sm sticky top-0 z-40"> 
+        <header className="bg-white flex items-center justify-between p-4 shadow-sm sticky top-0 z-40">
           <button className="text-2xl font-bold lg:hidden" onClick={() => setSidebarOpen(true)}>
             ☰
           </button>
           
           <div className="w-full flex justify-end">
-
-            {/* container do menu */}
             <div ref={menuRef} className="relative">
-              <button 
-                className="bg-gray-300 w-10 h-10 rounded-full"
+              <button
+                className="bg-gray-300 w-10 h-10 rounded-full overflow-hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-              <img src={ nopicture } alt="Usuário" /></button>
+                <img src={nopicture} alt="Usuário" className="w-full h-full object-cover" />
+              </button>
 
               {isMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-50 py-1">
@@ -122,11 +131,7 @@ export default function Layout() {
                     Meu Perfil
                   </Link>
                   <button
-                    onClick={() => {
-                      // logout logic
-                      console.log("Logout!");
-                      setIsMenuOpen(false);
-                    }}
+                    onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sair

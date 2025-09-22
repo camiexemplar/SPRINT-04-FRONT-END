@@ -15,20 +15,16 @@ import { LoginPage } from "./pages/loginPage";
 
 // --- MUDANÇAS AQUI ---
 import { AuthProvider } from './contexts/AuthContext';
-import { ProtectedRoute } from "./components/ProtectedRoute"; // 1. Importe o ProtectedRoute
+import { ProtectedRoute } from "./components/ProtectedRoute"; 
 
 function App() {
   return (
-    // 2. Envolva toda a aplicação com o AuthProvider
     <AuthProvider>
       <BrowserRouter>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<Loading />}>
             <Routes>
-              {/* Rota de Login é pública, fica de fora da proteção */}
               <Route path="/login" element={<LoginPage />} />
-
-              {/* 3. Use o ProtectedRoute para proteger o grupo de rotas privadas */}
               <Route element={<ProtectedRoute />}>
                 <Route element={<Layout />}>
                   <Route path="/" element={<Dashboard />} />
@@ -39,8 +35,6 @@ function App() {
                   <Route path="/alertas" element={<SendAlerts />} />
                 </Route>
               </Route>
-
-              {/* Rota para página não encontrada */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

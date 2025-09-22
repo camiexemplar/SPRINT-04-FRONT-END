@@ -1,36 +1,26 @@
-// src/pages/LoginPage.tsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import logo from '../assets/logo.png'; 
 
 export const LoginPage: React.FC = () => {
-  // --- LÓGICA DE FUNCIONALIDADE ---
-  const { login } = useAuth(); // Pega a função de login do nosso Contexto
-  const navigate = useNavigate(); // Hook para fazer o redirecionamento
-  
-  // Estados para controlar o que o usuário digita nos campos
+  const { login } = useAuth();
+  const navigate = useNavigate(); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Função executada quando o formulário é enviado (clique no botão "Entrar")
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // Impede que a página recarregue
+    event.preventDefault();
 
-    // Futuramente, aqui você validaria o email e senha com um backend.
-    // Por agora, apenas simulamos o sucesso.
-    login(); // Avisa toda a aplicação que o usuário está logado
+    login(); 
     
-    navigate('/'); // Redireciona o usuário para a página principal (Dashboard)
+    navigate('/'); 
   };
   
   return (
-    // --- ESTRUTURA VISUAL ---
     <div className="flex flex-col min-h-screen bg-gray-100 font-sans">
       
       <header className="w-full bg-white shadow-md py-2 px-8">
-        {/* Mantendo sua alteração no tamanho do logo */}
         <img src={logo} alt="CGL HealthTech Logo" className="w-25" />
       </header>
 
@@ -52,15 +42,15 @@ export const LoginPage: React.FC = () => {
               <input
                 type="email"
                 placeholder="E-mail institucional"
-                value={email} // Conecta o campo ao estado 'email'
-                onChange={(e) => setEmail(e.target.value)} // Atualiza o estado quando o usuário digita
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
               />
               <input
                 type="password"
                 placeholder="Senha"
-                value={password} // Conecta o campo ao estado 'password'
-                onChange={(e) => setPassword(e.target.value)} // Atualiza o estado quando o usuário digita
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
               />
               <button
