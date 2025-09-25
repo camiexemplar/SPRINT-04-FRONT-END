@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FileUploader from "./components/FileUploader";
-import { HelpVideos } from "./pages/patientVideos";
 import { SendAlerts } from "./pages/patientAlerts";
 import Layout from "./components/Layout";
 import PatientHistory from "./pages/patientHistory";
@@ -16,6 +15,11 @@ import { LoginPage } from "./pages/loginPage";
 // --- MUDANÇAS AQUI ---
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from "./components/ProtectedRoute"; 
+import { HomePage } from "./pages/Home";
+import { FaqPage } from "./pages/Faq";
+import { ContactPage } from "./pages/ContactUs";
+import { TeamPage } from "./pages/TeamPage";
+import { PublicLayout } from "./components/Home/PublicLayout";
 
 function App() {
   return (
@@ -24,14 +28,23 @@ function App() {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<Loading />}>
             <Routes>
+
+              <Route path="/" element={<PublicLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/contato" element={<ContactPage />} />
+              <Route path="/integrantes" element={<TeamPage />} /> 
+              </Route>
+
+
               <Route path="/login" element={<LoginPage />} />
+
               <Route element={<ProtectedRoute />}>
                 <Route element={<Layout />}>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/importar" element={<FileUploader />} />
                   <Route path="/validate" element={<ValidateForm />} />
                   <Route path="/historico" element={<PatientHistory />} />
-                  <Route path="/videos" element={<HelpVideos />} />
                   <Route path="/alertas" element={<SendAlerts />} />
                 </Route>
               </Route>

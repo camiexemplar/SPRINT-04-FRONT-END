@@ -14,7 +14,7 @@ export const LoginPage: React.FC = () => {
 
     login(); 
     
-    navigate('/'); 
+    navigate('/dashboard'); 
   };
   
   return (
