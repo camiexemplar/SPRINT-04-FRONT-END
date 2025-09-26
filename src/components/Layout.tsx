@@ -45,11 +45,10 @@ export default function Layout() {
   };
 
   const navItems = [
-    { name: "Dashboard", icon: "", path: "/" },
+    { name: "Dashboard Geral", icon: "", path: "/" },
     { name: "Histórico de pacientes", icon: "", path: "/historico" },
     { name: "Importar Dados", icon: "", path: "/importar" },
-    { name: "Vídeos para usuários", icon: "", path: "/videos" },
-    { name: "Enviar alertas", icon: "", path: "/alertas" },
+    { name: "Relatório de Abseteismo", icon: "", path: "/alertas" },
   ];
 
   useEffect(() => {

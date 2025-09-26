@@ -16,12 +16,10 @@ export default function PatientHistoryTable({ data }: PatientHistoryTableProps) 
   );
 
   const headers = [
-    "ID Consulta",
     "Paciente",
     "Data de Nascimento",
     "Telefone do Cuidador",
     "Telefone do Paciente",
-    "Médico Responsável",
     "Especialidade",
     "Data e Hora",
     "Status",

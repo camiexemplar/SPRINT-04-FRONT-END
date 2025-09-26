@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import logo from '../assets/logo.png'; 
 
@@ -14,14 +14,17 @@ export const LoginPage: React.FC = () => {
 
     login(); 
     
-    navigate('/'); 
+    navigate('/dashboard'); 
   };
   
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 font-sans">
       
       <header className="w-full bg-white shadow-md py-2 px-8">
+         <Link to="/" className="flex items-center gap-2 justify-between">
         <img src={logo} alt="CGL HealthTech Logo" className="w-25" />
+        <span className="font-bold text-xl text-blue-600">Voltar a Home</span>
+      </Link>
       </header>
 
       <main className="flex flex-grow items-center justify-center p-8">

@@ -1,0 +1,5 @@
+export function TeamPage() {
+    return (
+    <h1>HE WILL NEVER BE SATISFIED SATISFIED SATISFIEEEEEEEEEEEEEEEEEEEEEEEED</h1>
+
+)}
