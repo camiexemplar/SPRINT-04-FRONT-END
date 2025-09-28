@@ -45,7 +45,7 @@ export default function Layout() {
   };
 
   const navItems = [
-    { name: "Dashboard Geral", icon: "", path: "/" },
+    { name: "Dashboard Geral", icon: "", path: "/dashboard" },
     { name: "Histórico de pacientes", icon: "", path: "/historico" },
     { name: "Importar Dados", icon: "", path: "/importar" },
     { name: "Relatório de Abseteismo", icon: "", path: "/alertas" },
