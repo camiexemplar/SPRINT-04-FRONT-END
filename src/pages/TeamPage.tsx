@@ -103,6 +103,10 @@ export function TeamPage() {
           </section>
         </div>
       </main>
+
+      <footer className="bg-gray-800 text-white p-6 text-center">
+        <p>&copy; 2025 HealthTech IMREA. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }
