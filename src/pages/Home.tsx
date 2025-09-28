@@ -1,15 +1,11 @@
-import { useNavigate } from 'react-router-dom';
 import { HeroSection } from '../components/Home/HeroSection';
 import { FeatureCardsSection } from '../components/Home/FeatureCardsSection';
 
-export function HomePage() { 
-  const navigate = useNavigate();
 
-  const handleEnterCareLink = () => {
-    navigate('/login'); 
-  };
+export function HomePage() {
+  
 
-  const featuresData = [ 
+  const featuresData = [
     { 
       title: "Monitoramento Inteligente", 
       description: "Acompanhe pacientes com score de risco de absenteísmo e afinidade digital." 
@@ -30,14 +26,12 @@ export function HomePage() {
       <HeroSection 
         title="CareLink: Conectando Cuidado e Tecnologia para a Longevidade"
         description="Plataforma inovadora para monitoramento inteligente da saúde de idosos, gerenciamento eficiente de agendamentos e suporte contínuo para cuidadores."
-        buttonText="Entrar no CareLink"
-        onButtonClick={handleEnterCareLink}
       />
 
       <FeatureCardsSection features={featuresData} />
 
       <footer className="bg-gray-800 text-white p-6 text-center">
-          <p>&copy; {new Date().getFullYear()} HealthTech IMREA. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} HealthTech IMREA. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

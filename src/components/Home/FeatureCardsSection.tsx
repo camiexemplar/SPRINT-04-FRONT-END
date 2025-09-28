@@ -1,5 +1,20 @@
 import { FeatureCard } from './FeatureCard';
-import { FaHeartbeat, FaUsers, FaChartLine } from 'react-icons/fa'; 
+import ChartImage from '../../assets/chart.png';
+import UserImage from '../../assets/user.png';
+import HeartImage from '../../assets/coracao.png';
+
+const HeartbeatIcon = (
+  <img src={HeartImage} alt="Ícone de coracao" className="w-full h-full object-contain" />
+);
+
+const UsersIcon = (
+  <img src={UserImage} alt="Ícone de user" className="w-full h-full object-contain" />
+);
+
+const ChartLineIcon = (
+  <img src={ChartImage} alt="Ícone de chart" className="w-full h-full object-contain" />
+);
+
 
 interface FeatureItem {
   title: string;
@@ -12,7 +27,7 @@ interface FeatureCardsSectionProps {
 }
 
 export function FeatureCardsSection({ features }: FeatureCardsSectionProps) {
-  const defaultIcons = [<FaHeartbeat />, <FaUsers />, <FaChartLine />]; 
+  const defaultIcons = [HeartbeatIcon, UsersIcon, ChartLineIcon]; 
 
   return (
     <section className="bg-gray-100 py-20 px-4 md:px-8 lg:px-16 text-center">

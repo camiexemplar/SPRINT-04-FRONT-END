@@ -30,7 +30,7 @@ function App() {
             <Routes>
 
               <Route path="/" element={<PublicLayout />}>
-              <Route index element={<HomePage />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/contato" element={<ContactPage />} />
               <Route path="/integrantes" element={<TeamPage />} /> 
