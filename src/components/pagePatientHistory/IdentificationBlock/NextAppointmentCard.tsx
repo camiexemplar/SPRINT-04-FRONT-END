@@ -11,7 +11,7 @@ export function NextAppointmentCard({ nextAppointment }: NextAppointmentCardProp
         <div className="bg-white p-6 rounded-lg shadow-sm">
             {" "}
             {/* Adicionei separador visual */}
-            <h3 className="font-semibold text-gray-700 mb-2">PRÓXIMA CONSULTA</h3>
+            <h3 className="font-semibold text-gray-800 mb-2">PRÓXIMA CONSULTA</h3>
             <p className="text-sm text-gray-600">
             Data:{" "}
             <span className="font-medium">{nextAppointment.date}</span>

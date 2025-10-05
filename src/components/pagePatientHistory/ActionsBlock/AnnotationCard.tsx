@@ -12,13 +12,13 @@ export function AnnotationCard({ setPatient }: AnnotationCardProps) {
         if (newNote.trim() === '') return;
         
         const newInteraction: TeamNoteInteraction = {
-        id: Date.now().toString(), // ID único temporário
-        type: 'ANOTACAO_EQUIPE',
-        date: new Date().toLocaleDateString('pt-BR'),
-        time: new Date().toLocaleTimeString('pt-BR'),
-        note: newNote.trim(), // RNF03 (Anotações): Na implementação real, você SANITIZARIA o texto aqui.
-        userId: 'user123',
-        userName: 'senha',
+            id: Date.now().toString(), // ID único temporário
+            type: 'ANOTACAO_EQUIPE',
+            date: new Date().toLocaleDateString('pt-BR'),
+            time: new Date().toLocaleTimeString('pt-BR'),
+            note: newNote.trim(), // RNF03 (Anotações): Na implementação real, você SANITIZARIA o texto aqui.
+            userId: 'user123',
+            userName: 'senha',
         };
         
         setPatient(prevState => {

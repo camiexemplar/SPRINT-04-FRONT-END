@@ -1,4 +1,4 @@
-import type { PatientData } from "../../types/Patient";
+import type { PatientData } from "../../../types/Patient";
 import { FactorsList } from "./FactorsList";
 import { IdentificationCard } from "./IdentificationCard";
 import { NextAppointmentCard } from "./NextAppointmentCard";
@@ -15,6 +15,8 @@ export function IdentificationBlock({ patient }: IdentificationBlockProps) {
       <IdentificationCard
         name={patient.name}
         phone={patient.phone}
+        accompanying={patient.accompanying}
+        accompanyingPhone={patient.accompanyingPhone}
       />
 
       {/* 2. Bloco de Score de Risco */}

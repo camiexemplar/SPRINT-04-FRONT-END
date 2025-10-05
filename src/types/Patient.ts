@@ -2,6 +2,8 @@ export interface PatientData {
   id: string; 
   name: string;
   phone: string;
+  accompanying: string | null;
+  accompanyingPhone?: string | null;
   riskScore: number;
   riskLevel: 'ALTO' | 'MEDIO' | 'BAIXO';
   contributingFactors: string[];
@@ -31,4 +33,17 @@ export interface TeamNoteInteraction extends BaseInteraction {
   userName: string; // RN03
 }
 
-export type PatientInteraction = TeamNoteInteraction;
+export interface ConsultationInteraction extends BaseInteraction {
+  type: 'CONSULTA';
+  status: 'Realizada' | 'Faltou' | 'Agendada';
+  modality: 'Telefone' | 'Vídeo' | 'Presencial' | 'Híbrida';
+  professional: string; // RF04
+  specialty: string; // RF04
+}
+
+export interface SystemInteraction extends BaseInteraction {
+  type: 'INTERACAO_SISTEMA';
+  log: string; // Conteúdo da interação (ex: 'Lembrete enviado e visualizado')
+}
+
+export type PatientInteraction = ConsultationInteraction | SystemInteraction | TeamNoteInteraction;
