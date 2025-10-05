@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { PatientData } from "../types/Patient";
 import { PatientSearch } from "../components/PatientSearch";
-import { IdentificationBlock } from "../components/IdentificationBlock/IdentificationBlock";
+import { IdentificationBlock } from "../components/pagePatientHistory/IdentificationBlock/IdentificationBlock";
+import { ActionsBlock } from "../components/pagePatientHistory/ActionsBlock/ActionsBlock";
 
 const mockData: PatientData[] = [
   {
@@ -19,6 +20,26 @@ const mockData: PatientData[] = [
       time: "09:00",
       professional: "Dr. Silva",
     },
+    history: [
+      {
+        id: "note-1",
+        date: "2024-06-01",
+        time: "09:00",
+        type: "ANOTACAO_EQUIPE",
+        note: "Paciente faltou à consulta.",
+        userId: "user-123",
+        userName: "Enfermeira Maria"
+      },
+      {
+        id: "note-2",
+        date: "2024-06-15",
+        time: "10:30",
+        type: "ANOTACAO_EQUIPE",
+        note: "Sem resposta.",
+        userId: "user-456",
+        userName: "Enfermeira Joana"
+      }
+    ]
   },
   {
     id: "2",
@@ -32,6 +53,17 @@ const mockData: PatientData[] = [
       time: "14:30",
       professional: "Dra. Souza",
     },
+    history: [
+      {
+        id: "note-3",
+        date: "2024-06-05",
+        time: "11:00",
+        type: "ANOTACAO_EQUIPE",
+        note: "Mensagem enviada, não visualizada.",
+        userId: "user-789",
+        userName: "Enfermeira Carla"
+      }
+    ]
   },
 ];
 
@@ -117,7 +149,7 @@ export function PatientHistory() {
 
       {/* BLOC 3: AÇÕES E REGISTRO (Lateral - 25% do espaço) */}
       <div className="w-1/4 p-6 bg-gray-100 border-l border-gray-200">
-        <div className="text-gray-500">BLOCO 3: AÇÕES (A SER CONSTRUÍDO)</div>
+        <ActionsBlock patientId={patient.id} setPatient={setPatient} />
       </div>
     </div>
   );
