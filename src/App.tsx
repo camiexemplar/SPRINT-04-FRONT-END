@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FileUploader from "./components/FileUploader";
 import { SendAlerts } from "./pages/patientAlerts";
 import Layout from "./components/Layout";
-import PatientHistory from "./pages/patientHistory";
 import ValidateForm from "./components/ValidateForm";
 import { NotFound } from "./pages/NotFound";
 import { Suspense } from "react";
@@ -20,6 +19,7 @@ import { FaqPage } from "./pages/Faq";
 import { ContactPage } from "./pages/ContactUs";
 import { TeamPage } from "./pages/TeamPage";
 import { PublicLayout } from "./components/Home/PublicLayout";
+import { PatientHistory } from "./pages/patientHistory";
 
 function App() {
   return (
