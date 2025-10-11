@@ -25,7 +25,7 @@ export function AnnotationCard({ setPatient }: AnnotationCardProps) {
         if (!prevState) return null;
         return {
             ...prevState,
-            history: [newInteraction, ...prevState.history], 
+            history: [newInteraction, ...prevState.linhaDoTempo], 
         };
         });
 

@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react";
-import type { PatientData, PatientInteraction } from "../../../types/Patient";
+import type { PatientData, LinhaDoTempoDTO } from "../../../types/Patient";
 
 const mockData: PatientData[] = [
   {
-    id: "1",
-    name: "Vinicius Junior",
-    phone: "(11) 91234-5678",
-    accompanying: "Virginia",
-    accompanyingPhone: "(11) 99876-5432",
-    riskScore: 8.5,
-    riskLevel: "ALTO",
-    contributingFactors: [
+    idPaciente: "1",
+    nomePaciente: "Vinicius Junior",
+    telefonePaciente: "(11) 91234-5678",
+    acompanhante: {
+      nomeCuidador: "Virginia",
+      telefoneCuidador: "(11) 99876-5432",
+    },
+    scoreDeRisco: 8.5,
+    nivelDeRisco: "ALTO",
+    fatoresDeRisco: [
       "Faltou a consulta anterior",
       "Não respondeu ligações",
       "Baixa Afinidade Digital",
     ],
-    nextAppointment: {
-      date: "2025-07-10",
-      time: "09:00",
-      professional: "Dr. Silva",
+    proximaConsulta: {
+      dataConsulta: "2025-07-10",
+      horaConsulta: "09:00",
+      nomeMedico: "Dr. Silva",
+      especialidadeConsulta: "Clínico Geral",
     },
-    history: [
+    linhaDoTempo: [
       {
         id: "sys-005",
         date: "2025-07-05",
@@ -64,23 +67,26 @@ const mockData: PatientData[] = [
         professional: "Dra. Ana Costa",
         specialty: "Fisioterapia",
       },
-    ] as PatientInteraction[],
+    ] as LinhaDoTempoDTO[],
   },
   {
-    id: "2",
-    name: "Jane Smith",
-    phone: "987-654-3210",
-    accompanying: null,
-    accompanyingPhone: null,
-    riskScore: 1.2,
-    riskLevel: "BAIXO",
-    contributingFactors: ["Não visualizou as mensagens"],
-    nextAppointment: {
-      date: "2024-07-15",
-      time: "14:30",
-      professional: "Dra. Souza",
+    idPaciente: "2",
+    nomePaciente: "Jane Smith",
+    telefonePaciente: "987-654-3210",
+    acompanhante: {
+      nomeCuidador: "Virginia",
+      telefoneCuidador: "1199998888",
     },
-    history: [
+    scoreDeRisco: 1.2,
+    nivelDeRisco: "BAIXO",
+    fatoresDeRisco: ["Não visualizou as mensagens"],
+    proximaConsulta: {
+      dataConsulta: "2024-07-15",
+      horaConsulta: "14:30",
+      nomeMedico: "Dra. Souza",
+      especialidadeConsulta: "Oftalmologia",
+    },
+    linhaDoTempo: [
       {
         id: "note-3",
         date: "2024-06-05",
@@ -95,7 +101,7 @@ const mockData: PatientData[] = [
 ];
 
 const fetchPatientData = (id: string) => {
-  return mockData.find((p) => p.id === id) || null;
+  return mockData.find((p) => p.idPaciente === id) || null;
 };
 
 export function usePatientData() {
@@ -105,21 +111,19 @@ export function usePatientData() {
 
   useEffect(() => {
     if (!patientId) {
-        setPatient(null);
-        return;
+      setPatient(null);
+      return;
     }
 
     setLoading(true);
-    setPatient(null); 
+    setPatient(null);
 
     setTimeout(() => {
-
-        const fetchedData = fetchPatientData(patientId);
-
-        setPatient(fetchedData);
-        setLoading(false);
+      const fetchedData = fetchPatientData(patientId);
+      setPatient(fetchedData);
+      setLoading(false);
     }, 1500);
-    }, [patientId]); 
+  }, [patientId]);
 
   return {
     patientId,

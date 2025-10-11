@@ -12,23 +12,23 @@ export function IdentificationBlock({ patient }: IdentificationBlockProps) {
   return (
     <div className="space-y-6">
       <IdentificationCard
-        name={patient.name}
-        phone={patient.phone}
-        accompanying={patient.accompanying}
-        accompanyingPhone={patient.accompanyingPhone}
+        name={patient.nomePaciente}
+        phone={patient.telefonePaciente}
+        accompanying={patient.nomeCuidador}
+        accompanyingPhone={patient.telefoneCuidador}
       />
 
       <RiskScoreCard 
-        riskScore={patient.riskScore}
-        riskLevel={patient.riskLevel} 
+        riskScore={patient.scoreDeRisco}
+        riskLevel={patient.nivelDeRisco} 
        />  
 
       <FactorsList
-        contributingFactors={patient.contributingFactors}
+        contributingFactors={patient.fatoresDeRisco}
       />  
 
       <NextAppointmentCard
-        nextAppointment={patient.nextAppointment}
+        nextAppointment={patient.proximaConsulta}
       />
     </div>
   );

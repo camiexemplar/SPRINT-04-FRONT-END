@@ -1,10 +1,10 @@
-import type { InteractionType, PatientInteraction } from "../../../types/Patient";
+import type { InteractionType, LinhaDoTempoDTO } from "../../../types/Patient";
 import { ConsultationCard } from "./ConsultationCard";
 import { SystemInteractionCard } from "./SystemInteractionCard";
 import { TeamNoteCard } from "./TeamNoteCard";
 
 export interface TimelineProps {
-  history: PatientInteraction[];
+  history: LinhaDoTempoDTO[];
   filter: 'TODOS' | InteractionType;
   setFilter: (filter: 'TODOS' | InteractionType) => void;
   sortOrder: 'RECENTE' | 'ANTIGA';
@@ -12,7 +12,7 @@ export interface TimelineProps {
 }
 
 export function Timeline({ history, filter, setFilter, sortOrder, setSortOrder }: TimelineProps) {
-    const renderInteractionCard = (item: PatientInteraction) => {
+    const renderInteractionCard = (item: LinhaDoTempoDTO) => {
         switch (item.type) {
         case 'CONSULTA':
             return <ConsultationCard consultationInteraction={item} />;;

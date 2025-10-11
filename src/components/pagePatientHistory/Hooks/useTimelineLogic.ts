@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { PatientInteraction } from "../../../types/Patient";
+import type { LinhaDoTempoDTO } from "../../../types/Patient";
 
-export function useTimelineLogic(rawHistory: PatientInteraction[] | undefined) {
-    const [filter, setFilter] = useState<"TODOS" | PatientInteraction["type"]>("TODOS");
+export function useTimelineLogic(rawHistory: LinhaDoTempoDTO[] | undefined) {
+    const [filter, setFilter] = useState<"TODOS" | LinhaDoTempoDTO["type"]>("TODOS");
     const [sortOrder, setSortOrder] = useState<"RECENTE" | "ANTIGA">("RECENTE");
 
     const historyToUse = rawHistory || [];

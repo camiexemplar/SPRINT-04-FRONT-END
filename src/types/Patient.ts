@@ -1,20 +1,24 @@
 export interface PatientData {
-  id: string; 
-  name: string;
-  phone: string;
-  accompanying: string | null;
-  accompanyingPhone?: string | null;
-  riskScore: number;
-  riskLevel: 'ALTO' | 'MEDIO' | 'BAIXO';
-  contributingFactors: string[];
-  nextAppointment: NextAppointment;
-  history: PatientInteraction[];
+  idPaciente: string; 
+  nomePaciente: string;
+  telefonePaciente: string;
+  acompanhante: Acompanhante;
+  scoreDeRisco: number;
+  nivelDeRisco: 'ALTO' | 'MEDIO' | 'BAIXO';
+  fatoresDeRisco: string[];
+  proximaConsulta: ConsultaDTO;
+  linhaDoTempo: LinhaDoTempoDTO[];
 }
 
-export interface NextAppointment {
-  date: string;
-  time: string;
-  professional: string;
+export interface Acompanhante {
+  nomeCuidador: string | null;
+  telefoneCuidador: string | null;
+}
+export interface ConsultaDTO {
+  dataConsulta: string;
+  horaConsulta: string;
+  nomeMedico: string;
+  especialidadeConsulta: string;
 }
 
 export type InteractionType = 'CONSULTA' | 'INTERACAO_SISTEMA' | 'ANOTACAO_EQUIPE';
@@ -46,4 +50,4 @@ export interface SystemInteraction extends BaseInteraction {
   log: string;
 }
 
-export type PatientInteraction = ConsultationInteraction | SystemInteraction | TeamNoteInteraction;
+export type LinhaDoTempoDTO = ConsultationInteraction | SystemInteraction | TeamNoteInteraction;
