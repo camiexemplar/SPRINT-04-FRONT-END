@@ -19,17 +19,16 @@ export function BlocoIdentificacao({
         telefone={paciente.telefonePaciente}
       />
 
-      <CuidadorCard
-        nomeCuidador={paciente.cuidador.nomeCuidador}
-        telefoneCuidador={paciente.cuidador.telefoneCuidador}
-      />
+      {paciente.cuidador && (
+        <CuidadorCard
+          nomeCuidador={paciente.cuidador.nomeCuidador}
+          telefoneCuidador={paciente.cuidador.telefoneCuidador}
+        />
+      )}
 
-      <ScoreDeRiscoCard
-        scoreDeRisco={paciente.scoreDeRisco}
-        nivelDeRisco={paciente.nivelDeRisco}
-      />
+      <ScoreDeRiscoCard scoreDeRisco={paciente.scoreDeRisco} nivelDeRisco={paciente.nivelDeRisco} />
 
-      <ListaDeFatores contributingFactors={paciente.fatoresDeRisco} />
+      <ListaDeFatores fatoresDeRisco={paciente.fatoresDeRisco ?? []} />
 
       <ProximaConsultaCard proximaConsulta={paciente.proximaConsulta} />
     </div>

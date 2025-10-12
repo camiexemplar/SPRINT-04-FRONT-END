@@ -4,7 +4,7 @@ import { InteracaoSistemaCard } from "./InteracaoSistemaCard";
 import { InteracaoEquipeCard } from "./InteracaoEquipeCard";
 
 export interface LinhaDoTempoProps {
-  historico: LinhaDoTempoDTO[];
+  linhaDoTempo: LinhaDoTempoDTO[];
   filtro: "TODOS" | TipoInteracao;
   setFiltro: (filter: "TODOS" | TipoInteracao) => void;
   ordenacao: "RECENTE" | "ANTIGA";
@@ -12,7 +12,7 @@ export interface LinhaDoTempoProps {
 }
 
 export function LinhaDoTempo({
-  historico: historico,
+  linhaDoTempo: linhaDoTempo,
   filtro: filtro,
   setFiltro: setFiltro,
   ordenacao: ordenacao,
@@ -64,12 +64,12 @@ export function LinhaDoTempo({
       </div>
 
       <div className="relative">
-        {historico.length === 0 ? (
+        {linhaDoTempo.length === 0 ? (
           <p className="text-center text-gray-500 p-8 bg-white rounded-lg">
-            Nenhuma interação encontrada para os filtros selecionados.
+            Nenhuma interação encontrada para este paciente.
           </p>
         ) : (
-          historico.map((item) => (
+          linhaDoTempo.map((item) => (
             <div key={item.id} className="relative mb-6">
               {renderInteractionCard(item)}
             </div>

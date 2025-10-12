@@ -1,19 +1,21 @@
 export interface DadosPaciente {
-  idPaciente: string;
-  nomePaciente: string;
-  telefonePaciente: string;
-  cuidador: Cuidador;
-  scoreDeRisco: number;
-  nivelDeRisco: "ALTO" | "MEDIO" | "BAIXO";
-  fatoresDeRisco: string[];
-  proximaConsulta: ConsultaDTO;
-  linhaDoTempo: LinhaDoTempoDTO[];
+    // CAMPO OBRIGATÓRIO PARA A BUSCA
+    idPaciente: string;
+    nomePaciente: string;
+    telefonePaciente: string;
+    cuidador: Cuidador | null; 
+    scoreDeRisco: number | null; 
+    nivelDeRisco: "ALTO" | "MEDIO" | "BAIXO" | null; 
+    fatoresDeRisco: string[] | null; 
+    proximaConsulta: ConsultaDTO | null; 
+    linhaDoTempo: LinhaDoTempoDTO[]; 
 }
 
 export interface Cuidador {
-  nomeCuidador: string | null;
-  telefoneCuidador: string | null;
+    nomeCuidador: string | null;
+    telefoneCuidador: string | null;
 }
+
 export interface ConsultaDTO {
   dataConsulta: string;
   horaConsulta: string;

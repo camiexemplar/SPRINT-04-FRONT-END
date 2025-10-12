@@ -60,7 +60,7 @@ export function PatientHistory() {
 
       <div className="w-2/4 overflow-y-auto p-6">
         <LinhaDoTempo
-          historico={filteredAndSortedHistory}
+          linhaDoTempo={filteredAndSortedHistory}
           filtro={filter}
           setFiltro={setFilter}
           ordenacao={sortOrder}
