@@ -19,7 +19,7 @@ import { FaqPage } from "./pages/Faq";
 import { ContactPage } from "./pages/ContactUs";
 import { TeamPage } from "./pages/TeamPage";
 import { PublicLayout } from "./components/Home/PublicLayout";
-import { PatientHistory } from "./pages/patientHistory";
+import { PatientHistory } from "./pages/historicoPaciente";
 
 function App() {
   return (
