@@ -1,14 +1,15 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
-import type { DadosPaciente, InteracaoEquipe } from "../../../types/Paciente";
+import type { AnotacaoInputDTO, DadosPaciente, InteracaoEquipe } from "../../../types/Paciente";
 
 export interface AnotacoesCardProps {
+  idPaciente: string;
   setPaciente: Dispatch<SetStateAction<DadosPaciente | null>>;
 }
 
-export function AnotacoesCard({ setPaciente: setPaciente }: AnotacoesCardProps) {
+export function AnotacoesCard({ idPaciente: idPaciente, setPaciente: setPaciente }: AnotacoesCardProps) {
   const [novaAnotacao, setNovaAnotacao] = useState("");
 
-  const handleSaveNote = () => {
+  const salvarAnotacao = async () => {
     if (novaAnotacao.trim() === "") return;
 
     const novaInteracao: InteracaoEquipe = {
@@ -17,20 +18,44 @@ export function AnotacoesCard({ setPaciente: setPaciente }: AnotacoesCardProps) 
       data: new Date().toLocaleDateString("pt-BR"),
       hora: new Date().toLocaleTimeString("pt-BR"),
       anotacao: novaAnotacao.trim(),
-      idUsuario: "user123",
-      nomeUsuario: "Membro da Equipe",
+      idUsuario: "1",
+      nomeUsuario: "Gustavo",
     };
 
-    setPaciente((prevState) => {
-      if (!prevState) return null;
-      return {
-        ...prevState,
-        linhaDoTempo: [novaInteracao, ...prevState.linhaDoTempo],
-      };
-    });
+    const anotacaoInput: AnotacaoInputDTO = {
+      idPaciente: idPaciente,
+      idUsuario: novaInteracao.idUsuario,
+      conteudoAnotacao: novaAnotacao.trim(),
+    };
 
-    setNovaAnotacao("");
-    alert("Anotação salva com sucesso!");
+    try {
+        const response = await fetch("http://localhost:8080/api/anotacoes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(anotacaoInput),
+        });
+
+        if (!response.ok) {
+            // Se o servidor retornar 4xx ou 5xx
+            throw new Error("Falha ao salvar a anotação no servidor.");
+        }
+
+        // ✅ SUCESSO: SÓ ATUALIZA O ESTADO LOCAL APÓS A CONFIRMAÇÃO DO BACK-END
+        setPaciente((prevState) => {
+          if (!prevState) return null;
+          return {
+            ...prevState,
+            linhaDoTempo: [novaInteracao, ...prevState.linhaDoTempo],
+          };
+        });
+
+        setNovaAnotacao("");
+        alert("Anotação salva com sucesso!");
+
+    } catch (error) {
+        console.error("Erro na persistência da anotação:", error);
+        alert("ERRO: Não foi possível salvar a anotação. Consulte o log.");
+    }
   };
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
@@ -43,7 +68,7 @@ export function AnotacoesCard({ setPaciente: setPaciente }: AnotacoesCardProps) 
         onChange={(e) => setNovaAnotacao(e.target.value)}
       />
       <button
-        onClick={handleSaveNote}
+        onClick={salvarAnotacao}
         className="mt-2 w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200"
         disabled={novaAnotacao.trim() === ""}
       >

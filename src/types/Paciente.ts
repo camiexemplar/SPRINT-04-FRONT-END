@@ -41,7 +41,7 @@ export interface InteracaoEquipe extends InteracaoBase {
 
 export interface InteracaoConsulta extends InteracaoBase {
   tipo: "CONSULTA";
-  status: "Realizada" | "Faltou" | "Agendada";
+  status: "REALIZADA" | "FALTOU" | "AGENDADO" | "CANCELADA";
   modalidade: "Telefone" | "Vídeo" | "Presencial" | "Híbrida";
   profissional: string;
   especialidade: string;
@@ -53,3 +53,9 @@ export interface InteracaoSistema extends InteracaoBase {
 }
 
 export type LinhaDoTempoDTO = | InteracaoConsulta | InteracaoSistema | InteracaoEquipe;
+
+export interface AnotacaoInputDTO {
+  idPaciente: string;
+  idUsuario: string;
+  conteudoAnotacao: string;
+}

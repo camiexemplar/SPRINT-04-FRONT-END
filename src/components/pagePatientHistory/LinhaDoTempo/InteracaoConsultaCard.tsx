@@ -8,9 +8,10 @@ export function InteracaoConsultaCard({
   InteracaoConsulta: interacaoConsulta,
 }: InteracaoConsultaCardProps) {
   const corStatus =
-    interacaoConsulta.status === "Faltou"
+    interacaoConsulta.status === "FALTOU" ||
+    interacaoConsulta.status === "CANCELADA"
       ? "bg-red-500"
-      : interacaoConsulta.status === "Realizada"
+      : interacaoConsulta.status === "REALIZADA"
       ? "bg-green-500"
       : "bg-yellow-500";
 

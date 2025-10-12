@@ -1,5 +1,5 @@
 import { PatientSearch } from "../components/pagePatientHistory/PatientSearch";
-import { ActionsBlock } from "../components/pagePatientHistory/BlocoAcoes/BlocoDeAcoes";
+import { BlocoDeAcoes } from "../components/pagePatientHistory/BlocoAcoes/BlocoDeAcoes";
 import { LinhaDoTempo } from "../components/pagePatientHistory/LinhaDoTempo/LinhaDoTempo";
 import { useDadosPaciente } from "../components/pagePatientHistory/Hooks/useDadosPaciente";
 import { useTimelineLogic } from "../components/pagePatientHistory/Hooks/useTimelineLogic";
@@ -69,9 +69,9 @@ export function PatientHistory() {
       </div>
 
       <div className="w-1/4 p-6 bg-gray-100 border-l border-gray-200">
-        <ActionsBlock
-          patientId={paciente.idPaciente}
-          setPatient={setPaciente}
+        <BlocoDeAcoes
+          idPaciente={paciente.idPaciente}
+          setPaciente={setPaciente}
         />
       </div>
     </div>

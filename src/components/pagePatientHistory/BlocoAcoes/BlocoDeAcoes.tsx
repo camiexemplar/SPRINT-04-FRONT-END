@@ -2,15 +2,15 @@ import { type Dispatch, type SetStateAction } from "react";
 import type { DadosPaciente } from "../../../types/Paciente";
 import { AnotacoesCard } from "./AnotacoesCard";
 
-export interface ActionsBlockProps {
-  patientId: string;
-  setPatient: Dispatch<SetStateAction<DadosPaciente | null>>;
+export interface BlocoDeAcoesProps {
+  idPaciente: string;
+  setPaciente: Dispatch<SetStateAction<DadosPaciente | null>>;
 }
 
-export function ActionsBlock({ setPatient }: ActionsBlockProps) {
+export function BlocoDeAcoes({ idPaciente: idPaciente, setPaciente: setPaciente }: BlocoDeAcoesProps) {
   return (
     <div className="sticky top-0 space-y-6">
-      <AnotacoesCard setPaciente={setPatient} />
+      <AnotacoesCard idPaciente={idPaciente} setPaciente={setPaciente} />
 
       <div className="space-y-3">
         <h3 className="font-semibold text-gray-700">AÇÕES RÁPIDAS</h3>
