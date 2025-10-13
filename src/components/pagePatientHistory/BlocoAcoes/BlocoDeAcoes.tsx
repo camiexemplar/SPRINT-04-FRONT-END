@@ -20,9 +20,6 @@ export function BlocoDeAcoes({ idPaciente: idPaciente, setPaciente: setPaciente 
         <button className="w-full flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg transition duration-200">
           Ligar/Contato
         </button>
-        <button className="w-full flex items-center justify-center bg-gray-400 hover:bg-gray-500 text-white font-medium py-3 rounded-lg transition duration-200">
-          Editar Minhas Anotações (RF04 - Anotações)
-        </button>
       </div>
     </div>
   );

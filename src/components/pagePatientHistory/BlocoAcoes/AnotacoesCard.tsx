@@ -36,11 +36,9 @@ export function AnotacoesCard({ idPaciente: idPaciente, setPaciente: setPaciente
         });
 
         if (!response.ok) {
-            // Se o servidor retornar 4xx ou 5xx
             throw new Error("Falha ao salvar a anotação no servidor.");
         }
 
-        // ✅ SUCESSO: SÓ ATUALIZA O ESTADO LOCAL APÓS A CONFIRMAÇÃO DO BACK-END
         setPaciente((prevState) => {
           if (!prevState) return null;
           return {

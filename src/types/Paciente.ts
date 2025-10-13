@@ -59,3 +59,9 @@ export interface AnotacaoInputDTO {
   idUsuario: string;
   conteudoAnotacao: string;
 }
+
+export interface AnotacaoUpdateDTO {
+  idAnotacao: string; 
+  idUsuario: string;
+  novoConteudo: string;
+}

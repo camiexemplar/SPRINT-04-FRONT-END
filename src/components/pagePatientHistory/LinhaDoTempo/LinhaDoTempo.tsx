@@ -1,10 +1,16 @@
-import type { TipoInteracao, LinhaDoTempoDTO } from "../../../types/Paciente";
+import type { Dispatch, SetStateAction } from "react";
+import type {
+  DadosPaciente,
+  LinhaDoTempoDTO,
+  TipoInteracao,
+} from "../../../types/Paciente";
 import { InteracaoConsultaCard } from "./InteracaoConsultaCard";
 import { InteracaoSistemaCard } from "./InteracaoSistemaCard";
 import { InteracaoEquipeCard } from "./InteracaoEquipeCard";
 
 export interface LinhaDoTempoProps {
   linhaDoTempo: LinhaDoTempoDTO[];
+  setPaciente: Dispatch<SetStateAction<DadosPaciente | null>>;
   filtro: "TODOS" | TipoInteracao;
   setFiltro: (filter: "TODOS" | TipoInteracao) => void;
   ordenacao: "RECENTE" | "ANTIGA";
@@ -13,6 +19,7 @@ export interface LinhaDoTempoProps {
 
 export function LinhaDoTempo({
   linhaDoTempo: linhaDoTempo,
+  setPaciente: setPaciente,
   filtro: filtro,
   setFiltro: setFiltro,
   ordenacao: ordenacao,
@@ -25,7 +32,12 @@ export function LinhaDoTempo({
       case "INTERACAO_SISTEMA":
         return <InteracaoSistemaCard interacaoSistema={item} />;
       case "ANOTACAO_EQUIPE":
-        return <InteracaoEquipeCard interacaoEquipe={item} />;
+        return (
+          <InteracaoEquipeCard
+            interacaoEquipe={item}
+            setPaciente={setPaciente}
+          />
+        );
       default:
         return null;
     }
