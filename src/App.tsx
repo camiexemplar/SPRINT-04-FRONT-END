@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { Loading } from "./components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./pages/FallbackScreen";
-import { Dashboard } from "./pages/mainDashboard";
+import { Dashboard } from "./pages/Dashboard";
 import { LoginPage } from "./pages/loginPage";
 
 // --- MUDANÇAS AQUI ---
