@@ -1,5 +1,5 @@
-import { InformacoesDashboard } from "../components/pageDashboard/blocoDashboard/InformacoesDashboard";
-import { InformacoesPaciente } from "../components/pageDashboard/blocoPaciente/InformacoesPaciente";
+import { InformacoesDashboard } from "../components/pageDashboard/primeiroBloco/InformacoesDashboard";
+import { InformacoesPaciente } from "../components/pageDashboard/segundoBloco/InformacoesGerais";
 
 export function Dashboard(){
     return (

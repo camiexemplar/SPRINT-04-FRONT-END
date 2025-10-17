@@ -1,6 +1,4 @@
 import { useState } from "react";
-import GraficoDeBarras from "./GraficoDeBarras";
-import GraficoDePizza from "./GraficoDePizza";
 import { ConsultaDeHojeCard } from "./ConsultaDeHojeCard";
 interface ConsultaItem {
     nomePaciente: string;
@@ -14,7 +12,7 @@ interface ConsultaItem {
 
 // Mock de dados para simular uma chamada de API
 const mockConsultas: ConsultaItem[] = [
-    { nomePaciente: "Maria da Silva", horaConsulta: "14:30", especialidadeConsulta: "Cardiologia", nomeMedico: "Dr. João", scoreDeRisco: 92, telefonePaciete: "1198784501" },
+    { nomePaciente: "Maria da Silva", horaConsulta: "14:30", especialidadeConsulta: "Cardiologia", nomeMedico: "Dr. João", scoreDeRisco: 92, telefonePaciente: "1198784501" },
     { nomePaciente: "José Santos", horaConsulta: "10:00", especialidadeConsulta: "Pediatria", nomeMedico: "Dra. Ana", scoreDeRisco: 81, telefonePaciente: "1198784501" },
     { nomePaciente: "Ana Cláudia", horaConsulta: "11:45", especialidadeConsulta: "Dermatologia", nomeMedico: "Dr. Lucas", scoreDeRisco: 67, telefonePaciente: "1198784501"},
 ];
@@ -81,15 +79,6 @@ export function InformacoesDashboard(){
                     >   
                         RESOLVIDO
                     </button>
-                </div>
-            </div>
-
-            <div className="flex bg-gray-50">
-                <div className="w-1/2 p-6 bg-gray-50 border-r border-gray-200">
-                    <GraficoDePizza />
-                </div>
-                <div className="w-1/2 p-6 bg-gray-50 border-r border-gray-200">
-                    <GraficoDeBarras />
                 </div>
             </div>
 
