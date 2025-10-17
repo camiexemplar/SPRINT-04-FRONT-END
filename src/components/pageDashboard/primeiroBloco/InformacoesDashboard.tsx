@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { ConsultaDeHojeCard } from "./ConsultaDeHojeCard";
+
 interface ConsultaItem {
     nomePaciente: string;
     horaConsulta: string;
     especialidadeConsulta: string;
     nomeMedico: string;
     scoreDeRisco: number;
-    // Adicionar telefonePaciente aqui se for usá-lo
     telefonePaciente: string; 
 }
 
-// Mock de dados para simular uma chamada de API
 const mockConsultas: ConsultaItem[] = [
     { nomePaciente: "Maria da Silva", horaConsulta: "14:30", especialidadeConsulta: "Cardiologia", nomeMedico: "Dr. João", scoreDeRisco: 92, telefonePaciente: "1198784501" },
     { nomePaciente: "José Santos", horaConsulta: "10:00", especialidadeConsulta: "Pediatria", nomeMedico: "Dra. Ana", scoreDeRisco: 81, telefonePaciente: "1198784501" },
@@ -21,9 +20,7 @@ export function InformacoesDashboard(){
 
     const [input, setInput] = useState('');
 
-    // Função para renderizar cada card de consulta
     const renderizarConsultas = (item: ConsultaItem) => {
-        // A prop correta é "ConsultaDeHojeDashboard"
         return <ConsultaDeHojeCard
             scoreDeRisco={item.scoreDeRisco}
             nomePaciente={item.nomePaciente}
@@ -35,61 +32,68 @@ export function InformacoesDashboard(){
     };
 
     return (
-        <div>
-            <h1>Consultas Agendadas para hoje (14/10/2025)</h1>
-            <h1> Pacientes em alto risco: 8</h1>
-            <form className="w-full max-w-sm flex space-x-3">
-                <input
-                    type="text"
-                    placeholder="Pesquisar por nome"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="flex-grow p-1 border-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150"
-                />
+        <div className="space-y-6">
+            
+            <h1 className="text-3xl font-bold text-gray-800">
+                Fila de Intervenção Diária
+            </h1>
+            <h2 className="text-xl font-semibold text-gray-600 mb-4">
+                Consultas Agendadas para hoje (17/10/2025)
+            </h2>
 
-                <button
-                    type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition duration-200"
-                >
-                    Filtros Avançados
-                </button>
-            </form>
+            <div className="flex justify-between items-center bg-red-600 text-white p-4 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold">Priorização de Atendimento</h2>
+                <h2 className="text-2xl font-extrabold">8 Pacientes em ALTO RISCO</h2>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex space-x-3 mb-4">
+                    <input
+                        type="text"
+                        placeholder="Pesquisar por nome do paciente..."
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        className="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                    />
 
-            <div className="flex bg-gray-50">
-                <div className="w-1/3 p-6 ">
                     <button
-                        type="submit"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition duration-200"
-                    >   
+                        type="button"
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
+                    >
+                        Filtros Avançados
+                    </button>
+                </div>
+                
+                <div className="flex space-x-4 pt-3 border-t border-gray-100">
+                    <button
+                        type="button"
+                        className="px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200"
+                    > 
                         Status: TODOS
                     </button>
-                </div>
-                <div className="w-1/3 p-6 ">
                     <button
-                        type="submit"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition duration-200"
-                    >   
+                        type="button"
+                        className="px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                    > 
                         EM TRATAMENTO
                     </button>
-                </div>
-                <div className="w-1/3 p-6 ">
                     <button
-                        type="submit"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition duration-200"
-                    >   
+                        type="button"
+                        className="px-3 py-1 text-sm font-semibold rounded-full bg-green-100 text-green-800 hover:bg-green-200"
+                    > 
                         RESOLVIDO
                     </button>
                 </div>
             </div>
 
-            <div className="relative">
+            <div className="relative space-y-4">
                 {mockConsultas.length === 0 ? (
-                <p className="text-center text-gray-500 p-8 bg-white rounded-lg">
-                    Nenhuma interação encontrada para este paciente.
+                <p className="text-center text-gray-500 p-8 bg-white rounded-lg shadow-sm">
+                    Nenhuma consulta de alto risco agendada para hoje.
                 </p>
                 ) : (
                 mockConsultas.map((consulta, index) => (
-                    <div key={index} className="relative mb-6">
+                    <div key={index}>
                         {renderizarConsultas(consulta)}
                     </div>
                 ))
