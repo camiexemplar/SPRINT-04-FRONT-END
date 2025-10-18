@@ -19,6 +19,7 @@ const mockConsultas: ConsultaItem[] = [
 export function InformacoesDashboard(){
 
     const [input, setInput] = useState('');
+    const [data] = useState(new Date());
 
     const renderizarConsultas = (item: ConsultaItem) => {
         return <ConsultaDeHojeCard
@@ -38,7 +39,7 @@ export function InformacoesDashboard(){
                 Fila de Intervenção Diária
             </h1>
             <h2 className="text-xl font-semibold text-gray-600 mb-4">
-                Consultas Agendadas para hoje (17/10/2025)
+                Consultas Agendadas para hoje ({data.toLocaleDateString()})
             </h2>
 
             <div className="flex justify-between items-center bg-red-600 text-white p-4 rounded-lg shadow-md">
