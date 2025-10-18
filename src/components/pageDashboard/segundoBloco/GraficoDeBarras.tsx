@@ -1,34 +1,33 @@
 import { Chart } from "react-google-charts";
 
 const data = [
-  ["City", "2010 Population", "2000 Population"],
-  ["New York City, NY", 8175000, 8008000],
-  ["Los Angeles, CA", 3792000, 3694000],
-  ["Chicago, IL", 2695000, 2896000],
-  ["Houston, TX", 2099000, 1953000],
-  ["Philadelphia, PA", 1526000, 1517000],
+  ["Fator de Risco", "Frequência"],
+  ["Baixa Afinidade Digital", 25],
+  ["Histórico de Faltas", 18],
+  ["Falha no Contato", 12],
+  ["Não Visualizou Vídeo", 9],
+  ["Teleconsulta", 5],
 ];
 
-// Different options for non-material charts
 const options = {
-  title: "Population of Largest U.S. Cities",
-  chartArea: { width: "50%" },
-  hAxis: {
-    title: "Total Population",
-    minValue: 0,
-  },
-  vAxis: {
-    title: "City",
-  },
+    title: "Top 5 Fatores Críticos de Absenteísmo",
+    hAxis: { 
+        title: "Frequência (Contagem)",
+        minValue: 0,
+    },
+    vAxis: { 
+        title: "Fator de Risco",
+    },
+    legend: 'none',
+    chartArea: { width: "75%", height: "80%" }, 
 };
 
 export function GraficoDeBarras() {
   return (
     <Chart
-      // Bar is the equivalent chart type for the material design version.
       chartType="BarChart"
       width="100%"
-      height="400px"
+      height="300px"
       data={data}
       options={options}
     />

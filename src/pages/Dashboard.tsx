@@ -1,5 +1,5 @@
 import { InformacoesDashboard } from "../components/pageDashboard/primeiroBloco/InformacoesDashboard";
-import { InformacoesPaciente } from "../components/pageDashboard/segundoBloco/InformacoesGerais";
+import { InformacoesGerais } from "../components/pageDashboard/segundoBloco/InformacoesGerais";
 
 export function Dashboard(){
     return (
@@ -9,7 +9,7 @@ export function Dashboard(){
             </div>
 
             <div className="w-[35%] overflow-y-auto p-8 bg-white shadow-lg">
-                <InformacoesPaciente /> 
+                <InformacoesGerais /> 
             </div>
         </div>
     );

@@ -1,19 +1,18 @@
 import { Chart } from 'react-google-charts';
 
-// REMOVA O 'export' AQUI
 const dados = [
-  ['Tarefa', 'Horas por Dia'],
-  ['Trabalho', 11],
-  ['Comer', 2],
-  ['Locomoção', 2],
-  ['Assistir TV', 2],
-  ['Dormir', 7],
+  ['Nível de Risco', 'Contagem de Pacientes'],
+  ['Alto Risco (Score > 80)', 8], // Vermelho
+  ['Médio Risco (Score 60-80)', 18], // Amarelo
+  ['Baixo Risco (Score < 60)', 102], // Azul/Verde
 ];
 
-// REMOVA O 'export' AQUI
 const opcoes = {
-  title: 'Minhas Atividades Diárias',
-  is3D: false, 
+  title: 'Distribuição de Pacientes por Nível de Risco',
+  pieHole: 0.4,
+  colors: ['#DC3545', '#FFC107', '#007BFF'],
+  legend: { position: 'right' },
+  chartArea: { left: 10, top: 30, width: '95%', height: '85%' },
 };
 
 export function GraficoDePizza() {
@@ -23,7 +22,7 @@ export function GraficoDePizza() {
       data={dados}
       options={opcoes}
       width={'100%'}
-      height={'400px'}
+      height={'300px'}
     />
   );
 }
