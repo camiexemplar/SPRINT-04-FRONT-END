@@ -5,7 +5,7 @@ export interface AlertaItem {
     nomeMedico: string;
     especialidadeConsulta: string;
     horaConsulta: string;
-    scoreDeRisco: number | null;
+    scoreDeRisco: number;
     nivelDeRisco: "ALTO" | "MEDIO" | "BAIXO" | null;
     fatoresDeRisco: string[] | null;
     idConsulta: string;
